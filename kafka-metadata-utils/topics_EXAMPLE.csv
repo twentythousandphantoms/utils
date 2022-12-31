@@ -1,0 +1,7 @@
+Topic:PartitionCount:ReplicationFactor:Configs
+kafka-default-topic:2:3:compression.type=lz4,min.insync.replicas=2,segment.bytes=1073741824,message.format.version=2.7-IV2,max.message.bytes=2000000
+Test:1:3:compression.type=lz4,min.insync.replicas=2,segment.bytes=1073741824,message.format.version=2.7-IV2,max.message.bytes=2000000
+jarvis_metrics:32:3:compression.type=lz4,min.insync.replicas=2,segment.bytes=1073741824,retention.ms=172800000,message.format.version=2.7-IV2,max.message.bytes=2000000
+__KafkaCruiseControlModelTrainingSamples:32:3:compression.type=lz4,min.insync.replicas=2,segment.bytes=1073741824,retention.ms=12000000,message.format.version=2.7-IV2,max.message.bytes=2000000
+__consumer_offsets:50:3:compression.type=producer,min.insync.replicas=2,cleanup.policy=compact,segment.bytes=104857600,message.format.version=2.7-IV2,max.message.bytes=2000000
+.checkpoints.internal:1:3:compression.type=lz4,min.insync.replicas=2,cleanup.policy=compact,segment.bytes=1073741824,message.format.version=2.7-IV2,max.message.bytes=2000000
