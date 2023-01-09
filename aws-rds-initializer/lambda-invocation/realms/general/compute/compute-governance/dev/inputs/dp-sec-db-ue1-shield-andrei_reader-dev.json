@@ -1,0 +1,17 @@
+{
+    "secret_name": "dp-sec-db-ue1-shield-master_user-dev",
+    "database_name":"shield_db",
+    "rds_host": "dp-db-ue1-shield-dev.cluster-c96myi41ncax.us-east-1.rds.amazonaws.com",
+    "region":"us-east-1",
+    "kms_key_id": "f8f2b92f-f7a9-44d7-9478-a41fedc3e5ce",
+    "db_engine":"mysql",
+    "users": [
+        {
+            "db_user":"andrei_reader",
+            "grant_privileges":"SELECT",
+            "log_secretstring": "true",
+            "create_secret": "false",
+            "expire_password_after_creation": "true"
+        }
+   ]
+}

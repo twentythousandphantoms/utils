@@ -1,0 +1,15 @@
+{
+    "subnets": "subnet-xxxxxxxxxxxxxxxxx",
+    "securityGroups": "sg-xxxxxxxxxxxxxxxxx",
+    "roleArn": "arn:aws:iam::xxxxxxxxxxxx:role/dp-role-comp-gen-gov-rds-initializer-dev",
+    "env": "dev",
+    "account": "xxxxxxxxxxxx",
+    "awsRegion": "us-east-1",
+    "functionName": "dp-lmd-ue1-gov-rds-initializer-dev",
+    "domainName": "governance",
+    "accountFunction": "compute",
+    "productName": "xxxxxx",
+    "appName": "xxxxxx",
+    "securityGroupName": "dp-secgrp-shield-lmd-dev",
+    "vpcId": "vpc-xxxxxxxxxxxxxxxxx"
+}

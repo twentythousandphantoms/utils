@@ -1,0 +1,12 @@
+{
+    "secret_name": "dp-sec-db-ue1-maestro-master_user-dev",
+    "db_user": "maestro_admin",
+    "database_name": "maestro_db",
+    "rds_host": "dp-db-ue1-maestro-dev.cluster-xxxxxxxxxxxx.us-east-1.rds.amazonaws.com",
+    "privileges": "all privileges",
+    "is_create_db": "False",
+    "is_create_user": "True",
+    "region": "us-east-1",
+    "user_secret_name": "dp-sec-db-ue1-maestro-maestro_admin-dev",
+    "kms_key_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+}

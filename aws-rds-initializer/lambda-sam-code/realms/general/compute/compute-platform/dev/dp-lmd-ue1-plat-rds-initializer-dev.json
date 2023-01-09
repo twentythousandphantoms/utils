@@ -1,0 +1,15 @@
+{
+    "subnets": "subnet-xxxxxxxxxxxxxxxxx,subnet-xxxxxxxxxxxxxxxxx,subnet-xxxxxxxxxxxxxxxxx",
+    "securityGroups": "sg-05450d860316dda90",
+    "roleArn": "arn:aws:iam::231874138027:role/dp-role-comp-gen-plat-rds-initializer-dev",
+    "env": "dev",
+    "account": "231874138027",
+    "awsRegion": "us-east-1",
+    "functionName": "dp-lmd-ue1-plat-rds-initializer-dev",
+    "domainName": "platform",
+    "accountFunction": "compute",
+    "productName": "xxxxxx",
+    "appName": "xxxxxx",
+    "securityGroupName": "dp-secgrp-xxxxxx-lmd-dev",
+    "vpcId": "vpc-xxxxxxxxxxxxxxxxx"
+}

@@ -1,0 +1,17 @@
+{
+    "secret_name": "dp-sec-db-ue1-maestro-master_user-dev",
+    "database_name":"maestro_db",
+    "rds_host": "dp-db-ue1-maestro-dev.cluster-xxxxxxxxxxxx.us-east-1.rds.amazonaws.com",
+    "region":"us-east-1",
+    "kms_key_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "db_engine":"mysql",
+    "users": [
+        {
+            "db_user":"shane_reader",
+            "grant_privileges":"SELECT",
+            "log_secretstring": "true",
+            "create_secret": "false",
+            "expire_password_after_creation": "true"
+        }
+   ]
+}

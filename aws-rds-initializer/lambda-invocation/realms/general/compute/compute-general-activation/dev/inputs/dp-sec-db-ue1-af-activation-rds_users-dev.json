@@ -1,0 +1,31 @@
+{
+    "secret_name": "dp-sec-db-ue1-af-activation-master_user-dev",
+    "database_name": "airflow",
+    "rds_host": "dp-db-ue1-af-activation-dev.cluster-xxxxxxxxxxxx.us-east-1.rds.amazonaws.com",
+    "region": "us-east-1",
+    "kms_key_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "db_engine":"postgres",
+    "users": [
+      {
+         "db_user":"airflow-rw-ddl",
+         "user_secret_name":"dp-sec-db-ue1-af-activation-af_rw_ddl-dev",
+         "grant_ddl":"true",
+         "grant_privileges":"SELECT,INSERT,UPDATE,DELETE,TRUNCATE",
+         "grantor":"None"
+      },
+      {
+         "db_user":"airflow-rw-dml",
+         "user_secret_name":"dp-sec-db-ue1-af-activation-af_rw-dev",
+         "grant_ddl":"false",
+         "grant_privileges":"SELECT,INSERT,UPDATE,DELETE",
+         "grantor":"airflow-rw-ddl"
+      },
+      {
+         "db_user":"airflow-ro-dml",
+         "user_secret_name":"dp-sec-db-ue1-af-activation-af_ro-dev",
+         "grant_ddl":"false",
+         "grant_privileges":"SELECT",
+         "grantor":"airflow-rw-ddl"
+      }
+   ]
+}

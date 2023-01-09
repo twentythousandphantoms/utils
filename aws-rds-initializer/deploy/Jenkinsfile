@@ -1,0 +1,64 @@
+@Library('pipeline-library@master') _
+pipeline_aws_sam {
+    // Dynamic parameters
+    targetBranch = true // enable box to select other branch than master
+    deploymentRegion = ['us-east-1', 'us-west-2']
+    environments = ['sb','dev','qa','prod']
+    domainNameMap = [
+            "governance": "gov",
+            "platform"  : "plat",
+            "activation": "act",
+            "playground":"plygnd"
+    ]
+    accountsName = [
+            'compute-governance',
+            'compute-platform',
+            'compute-general-activation',
+            'compute-general-playground'
+
+    ]
+
+
+    // External ID vars
+    externalIdVar = [
+                        "hidden"
+                    ]
+
+    awsSAMPackage = [command: 'package',
+                    arguments: [
+                        ['--template-file', 'template.yaml'],
+                        ['--output-template-file', 'packaged.yaml'],
+                        // ['--s3-bucket', 'dp-ue1-general-ENVIRONMENT_TOKEN-xxxxxx-artifacts'],
+                        ['--region', 'REGION_TOKEN'],
+                        ['--s3-bucket', 'dp-REGION_SHORT_FORM_TOKEN-gen-unified-artifacts-ENVIRONMENT_TOKEN'],
+                        ['--s3-prefix','dp-lmd-REGION_SHORT_FORM_TOKEN-DOMAIN_NAME_SHORT_FORM_TOKEN-rds-initializer-ENVIRONMENT_TOKEN'],
+                        ['--kms-key-id', 'alias/dp-key-data-gen-ENVIRONMENT_TOKEN']
+                    ]]
+
+    awsSAMDeploy = [command: 'deploy',
+                    arguments: [
+                        ['--template-file', 'packaged.yaml'],
+                        ['--stack-name', 'rds-initializer'],
+                        ['--capabilities', 'CAPABILITY_NAMED_IAM'],
+                        ['--region', 'REGION_TOKEN'],
+                        ['--parameter-overrides', '\$(jq -r \'to_entries[] | "\\(.key)=\\(.value)"\' lambda-sam-code/realms/general/compute/ACCOUNT_NAME_TOKEN/ENVIRONMENT_TOKEN/dp-lmd-REGION_SHORT_FORM_TOKEN-DOMAIN_NAME_SHORT_FORM_TOKEN-rds-initializer-ENVIRONMENT_TOKEN.json)']
+                    ]]
+
+    awsCFDeleteStack = [command: 'delete-stack',
+                    service: 'cloudformation',
+                    arguments: [
+                        ['--stack-name', 'rds-initializer'],
+                        ['--region', 'REGION_TOKEN']
+                    ]]
+
+    // Notification
+    emailRecipients = ''
+    slackChannels = '#dp-xxxxxx-jenkins-builds'
+
+    // Disable unused Flags
+    overrideBuildStages = [ deploy: [validateDeploymentTargetsFlag: false,
+                                    validateFlag: false,
+                                    packageFlag: true,
+                                    buildFlag: false],
+                            remove: [validateDeploymentTargetsFlag: false]]
+}

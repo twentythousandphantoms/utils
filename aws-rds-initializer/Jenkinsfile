@@ -1,0 +1,20 @@
+@Library('pipeline-library@master') _
+pipeline_xxxxxx_dp_deploy_terraform {
+    // https://gitlab.xxxxxx.com/.../pipeline-lib-jenkinsfile/-/blob/master/vars/pipeline_xxxxxx_dp_deploy_terraform.groovy
+    // Terraform Variables
+    // terraformVersion = '0.12.24'
+
+    accountsRoles = [
+        "compute-governance",
+        "compute-platform",
+        "compute-general-playground",
+        "..."
+        ]
+
+    // notifications
+    // emailRecipients = 'andrei@example.com'
+    // emailRecipients = ''
+
+    //Notification
+    slackChannels = '#dp-xxxxxx-jenkins-builds'
+}

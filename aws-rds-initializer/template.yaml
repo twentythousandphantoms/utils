@@ -1,0 +1,125 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: "AWS::Serverless-2016-10-31"
+Description: >-
+  An Amazon S3 trigger that retrieves metadata for the object that has been
+  updated.
+
+Parameters:
+  subnets:
+    Type: List<AWS::EC2::Subnet::Id>
+    Description: List of private subnets for RDS
+
+  securityGroups:
+    Type: List<AWS::EC2::SecurityGroup::Id>
+    Description: List of Security Group used for RDS
+
+  roleArn:
+    Type: String
+    Description: Role Name for RDS
+    Default: ""
+  env:
+    Type: String
+    Description: Environment
+    AllowedValues: ["dev", "qa", "prod", "sandbox"]
+    # Default: sandbox
+  account:
+    Type: String
+    Description: AWS Compute Account ID
+    # Default: ""
+  awsRegion:
+    Type: String
+    Description: AWS Region
+    # Default: us-east-1
+  functionName:
+    Type: String
+    Description: function name
+
+  domainName:
+    Type: String
+    Description: Domain name
+    Default: governance
+  accountFunction:
+    Type: String
+    Description: Account Function
+    Default: compute
+  productName:
+    Type: String
+    Description: Product name
+    # Default:
+  appName:
+    Type: String
+    Description: Application name
+    # Default:
+  securityGroupName:
+    Type: String
+    Description: Security Group name
+    # Default: dp-secgrp-xxxxxx-lmd-dev
+
+  vpcId:
+    Type: String
+    Description: Security Group name
+
+Resources:
+  LambdaSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: "used for RDS Initializer Lambda"
+      GroupName: !Ref securityGroupName
+      SecurityGroupIngress:
+        - IpProtocol: "-1"
+          SourceSecurityGroupId: !Join [",", !Ref securityGroups]
+      SecurityGroupEgress:
+        - IpProtocol: "-1"
+          CidrIp: 0.0.0.0/0
+
+      Tags:
+        - Key: domain-name
+          Value: !Ref domainName
+        - Key: domain-env
+          Value: !Ref env
+        - Key: account-function
+          Value: !Ref accountFunction
+        - Key: product-name
+          Value: !Ref productName
+        - Key: app-name
+          Value: !Ref appName
+      VpcId: !Ref vpcId
+
+  LambdaSecurityGroupIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      IpProtocol: -1
+      SourceSecurityGroupId: !GetAtt LambdaSecurityGroup.GroupId
+      GroupId:
+        Fn::GetAtt:
+          - LambdaSecurityGroup
+          - GroupId
+    DependsOn: LambdaSecurityGroup
+
+  RDSDatabaseCreationLambda:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.8
+      CodeUri: deploy/
+      Description: Lambda to create a database in the RDS instance provided.
+      MemorySize: 128
+      Timeout: 55
+      Role: !Sub "${roleArn}"
+      FunctionName: !Ref functionName
+      VpcConfig:
+        SecurityGroupIds: !Split [",", !Ref LambdaSecurityGroup]
+        SubnetIds: !Ref subnets
+      #     BucketEvent1:
+      #       Type: S3
+      #       Properties:
+      #         Bucket: !Ref SrcBucket
+      #         Events:
+      #           - 's3:ObjectCreated:*'
+      Tags:
+        domain-name: !Ref domainName
+        domain-env: !Ref env
+        account-function: !Ref accountFunction
+        product-name: !Ref productName
+        app-name: !Ref appName
+      # DependsOn: LambdaSecurityGroup

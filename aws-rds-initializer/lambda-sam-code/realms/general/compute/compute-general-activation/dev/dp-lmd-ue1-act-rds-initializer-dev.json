@@ -1,0 +1,15 @@
+{
+    "securityGroups": "sg-xxxxxxxxxxxxxxxxx",
+    "securityGroupName": "dp-secgrp-rds-initializer-lmd-dev",
+    "roleArn": "arn:aws:iam::xxxxxxxxxxxx:role/dp-role-comp-gen-act-rds-initializer-dev",
+    "env": "dev",
+    "account": "xxxxxxxxxxxx",
+    "awsRegion": "us-east-1",
+    "functionName": "dp-lmd-ue1-act-rds-initializer-dev",
+    "domainName": "activation",
+    "accountFunction": "compute",
+    "productName": "misc",
+    "appName": "misc",
+    "vpcId": "vpc-xxxxxxxxxxxxxxxxx",
+    "subnets": "subnet-xxxxxxxxxxxxxxxxx,subnet-xxxxxxxxxxxxxxxxx,subnet-xxxxxxxxxxxxxxxxx"
+}

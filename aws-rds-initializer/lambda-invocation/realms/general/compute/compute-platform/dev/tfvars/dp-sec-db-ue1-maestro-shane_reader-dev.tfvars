@@ -1,0 +1,6 @@
+function_name    = "dp-lmd-ue1-plat-rds-initializer-dev"
+user_env         = "dev"
+inputs_file      = "dp-sec-db-ue1-maestro-shane_reader-dev"
+account-function = "compute"
+account-name     = "compute-platform"
+realm            = "general"

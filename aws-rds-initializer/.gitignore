@@ -1,0 +1,19 @@
+# IDEs
+.vscode/
+.idea/
+
+# Terraform local
+terraform.tfvars
+terraform.tfstate
+.terraform
+*.tfstate*
+*.tfstate.lock.info
+*.tfplan
+plan.out
+
+# Misc
+go.
+.DS_Store
+__pycahce__/
+*.pyc
+jenkins_runner.py

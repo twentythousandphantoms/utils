@@ -1,0 +1,6 @@
+function_name    = "dp-lmd-ue1-gov-rds-initializer-dev"
+user_env         = "dev"
+inputs_file      = "dp-sec-db-ue1-shield-andrei_reader-dev"
+account-function = "compute"
+account-name     = "compute-governance"
+realm            = "general"
